@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Werent is a modern responsive rental and leasing marketplace prototype for residential, commercial, industrial, retail and rural properties." />
+  <meta name="theme-color" content="#1238d6" />
+  <title>Werent — Where Australia Leases</title>
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Werent",
+      "url": "https://example.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://example.com/#listings?location={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- Header / Navigation -->
+  <header class="site-header" id="top">
+    <div class="container nav-shell">
+      <a class="brand" href="#home" aria-label="Werent home" data-route="home">werent<span>.</span></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#home" data-route="home">Rent</a>
+        <a href="#listings" data-category-link="Commercial">Commercial</a>
+        <a href="#listings" data-category-link="Industrial">Industrial</a>
+        <a href="#listings" data-category-link="Retail">Retail</a>
+        <a href="#listings" data-category-link="Rural">Rural</a>
+        <a href="#agent" data-route="agent">Find Agents</a>
+        <button class="nav-dropdown" type="button">Resources <span>⌄</span></button>
+      </nav>
+      <div class="nav-actions">
+        <button class="ghost-action saved-top" type="button" data-route="listings" aria-label="Saved properties"><span>♡</span> Saved</button>
+        <button class="btn btn-soft" type="button" data-route="agent">Log in</button>
+        <button class="btn btn-dark" type="button" data-route="agent">Sign up</button>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home" data-route="home">Home</a>
+      <a href="#listings" data-category-link="Residential">Residential</a>
+      <a href="#listings" data-category-link="Commercial">Commercial</a>
+      <a href="#listings" data-category-link="Industrial">Industrial</a>
+      <a href="#listings" data-category-link="Retail">Retail</a>
+      <a href="#listings" data-category-link="Rural">Rural</a>
+      <a href="#agent" data-route="agent">Agent Portal</a>
+      <a href="#admin" data-route="admin">Admin</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- HOME VIEW -->
+    <section class="view active" id="view-home" data-view="home">
+      <!-- Hero Search Section -->
+      <section class="hero-section">
+        <div class="hero-backdrop" role="img" aria-label="Bright modern rental living room"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+          <div class="hero-copy reveal-up">
+            <p class="eyebrow">Exclusive Australian marketplace</p>
+            <h1>Where Australia <span>Leases.</span></h1>
+            <p>Residential, commercial, industrial, retail and rural — all in one place.</p>
+          </div>
+
+          <form class="search-panel reveal-up" id="homeSearchForm">
+            <div class="search-tabs" role="tablist" aria-label="Lease type">
+              <button class="tab active" type="button" data-mode="lease">For Lease</button>
+              <button class="tab" type="button" data-mode="rent">For Rent</button>
+            </div>
+            <div class="search-grid">
+              <label class="field">
+                <span>What are you looking for?</span>
+                <select id="homeCategory">
+                  <option>Residential</option>
+                  <option>Commercial</option>
+                  <option>Industrial</option>
+                  <option>Retail</option>
+                  <option>Rural</option>
+                </select>
+              </label>
+              <label class="field field-wide">
+                <span>Location</span>
+                <input id="homeLocation" type="search" placeholder="Suburb, city or postcode" autocomplete="off" />
+              </label>
+              <label class="field">
+                <span>Property type</span>
+                <select id="homeType"><option>Any</option></select>
+              </label>
+              <label class="field compact">
+                <span>Min price</span>
+                <select id="homeMinPrice">
+                  <option value="0">Any</option>
+                  <option value="400">$400</option>
+                  <option value="1000">$1,000</option>
+                  <option value="10000">$10,000</option>
+                  <option value="50000">$50,000</option>
+                </select>
+              </label>
+              <label class="field compact">
+                <span>Max price</span>
+                <select id="homeMaxPrice">
+                  <option value="999999">Any</option>
+                  <option value="700">$700</option>
+                  <option value="5000">$5,000</option>
+                  <option value="50000">$50,000</option>
+                  <option value="150000">$150,000</option>
+                </select>
+              </label>
+              <button class="btn btn-primary search-submit" type="submit">
+                <span class="icon-search"></span> Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Browse by Category -->
+      <section class="section-pad category-section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow blue">Browse sectors</p>
+              <h2>Browse by category</h2>
+            </div>
+            <p>Start with a sector, then refine with filters designed for that market.</p>
+          </div>
+          <div class="category-grid" id="categoryGrid"></div>
+        </div>
+      </section>
+
+      <!-- Popular Searches -->
+      <section class="popular-section">
+        <div class="container">
+          <h2>Popular searches</h2>
+          <div class="chips" id="popularChips"></div>
+        </div>
+      </section>
+
+      <!-- Feature Strip -->
+      <section class="feature-strip">
+        <div class="container strip-grid">
+          <article><span class="round-icon">⌕</span><div><strong>Easy search</strong><p>Find the right property fast</p></div></article>
+          <article><span class="round-icon">☑</span><div><strong>Verified listings</strong><p>Quality checked for peace of mind</p></div></article>
+          <article><span class="round-icon">♡</span><div><strong>Save & compare</strong><p>Shortlist and compare properties</p></div></article>
+          <article><span class="round-icon">▣</span><div><strong>Apply online</strong><p>Quick and secure applications</p></div></article>
+        </div>
+      </section>
+
+      <!-- Second Layer Preview -->
+      <section class="section-pad layer-preview">
+        <div class="container">
+          <div class="section-heading align-start">
+            <div>
+              <p class="eyebrow blue">Second layer</p>
+              <h2>Search by category</h2>
+            </div>
+            <p>Each property sector has its own filter logic, so tenants only see what matters.</p>
+          </div>
+          <div class="sector-preview-grid" id="sectorPreviewGrid"></div>
+        </div>
+      </section>
+    </section>
+
+    <!-- LISTINGS VIEW -->
+    <section class="view" id="view-listings" data-view="listings">
+      <section class="listings-hero">
+        <div class="container listings-hero-content">
+          <div>
+            <p class="eyebrow">Search marketplace</p>
+            <h1>All Australian properties</h1>
+            <p>Filter by location, price, category and sector-specific features.</p>
+          </div>
+          <form class="hero-mini-search" id="listingTopSearch">
+            <input id="listingLocation" type="search" placeholder="Suburb, state, city or postcode..." />
+            <select id="listingCategory">
+              <option>Any Category</option>
+              <option>Residential</option>
+              <option>Commercial</option>
+              <option>Industrial</option>
+              <option>Retail</option>
+              <option>Rural</option>
+            </select>
+            <button class="btn btn-primary" type="submit">Search listings</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="sector-nav-section">
+        <div class="container sector-nav" id="sectorNav"></div>
+      </section>
+
+      <section class="container result-layout">
+        <aside class="filters-panel" aria-label="Search filters">
+          <div class="map-card">
+            <div class="map-header"><span>⌁</span><strong>Interactive Map Search</strong></div>
+            <p>Click a suburb marker or use filters to refine geographically.</p>
+            <div class="mock-map" id="mockMap">
+              <button style="left:52%; top:38%" data-city="Melbourne">Melbourne</button>
+              <button style="left:61%; top:52%" data-city="Sydney">Sydney</button>
+              <button style="left:44%; top:48%" data-city="Adelaide">Adelaide</button>
+              <button style="left:31%; top:42%" data-city="Perth">Perth</button>
+            </div>
+          </div>
+
+          <div class="filter-card">
+            <div class="filter-title">
+              <h3>Refine your search</h3>
+              <button type="button" id="clearFilters">Clear all</button>
+            </div>
+            <div id="dynamicFilters"></div>
+            <label class="range-field">
+              <span>Price range</span>
+              <input id="priceRange" type="range" min="0" max="200000" step="500" value="200000" />
+              <small>Up to <b id="priceRangeLabel">Any</b></small>
+            </label>
+            <label class="field small-field">
+              <span>Sort by</span>
+              <select id="sortSelect">
+                <option value="newest">Newest</option>
+                <option value="priceLow">Price low to high</option>
+                <option value="priceHigh">Price high to low</option>
+                <option value="popular">Most viewed</option>
+              </select>
+            </label>
+          </div>
+        </aside>
+
+        <section class="results-panel">
+          <div class="result-topbar">
+            <div>
+              <p class="eyebrow blue" id="resultEyebrow">Search results</p>
+              <h2 id="resultCount">Properties found</h2>
+            </div>
+            <div class="view-toggle" aria-label="View controls">
+              <button class="active" type="button" data-layout="grid">Grid</button>
+              <button type="button" data-layout="list">List</button>
+            </div>
+          </div>
+          <div class="listing-grid" id="listingGrid"></div>
+          <div class="empty-state" id="emptyState" hidden>
+            <span>⌕</span>
+            <h3>No matching properties</h3>
+            <p>Try a wider location, lower price, or clear the category filters.</p>
+            <button class="btn btn-primary" type="button" id="emptyClear">Clear filters</button>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <!-- AGENT VIEW -->
+    <section class="view" id="view-agent" data-view="agent">
+      <section class="dashboard-hero">
+        <div class="container dashboard-hero-grid">
+          <div>
+            <p class="eyebrow">Agent portal</p>
+            <h1>Post, edit and track your listings.</h1>
+            <p>A clean demo dashboard with local browser storage. Add a property and send it to the admin queue.</p>
+          </div>
+          <div class="hero-stats-card">
+            <span>Total live views</span>
+            <strong id="agentTotalViews">0</strong>
+            <p>Demo analytics update when visitors open listing details.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="container dashboard-layout">
+        <aside class="dashboard-sidebar">
+          <button class="dash-link active" type="button" data-dash-tab="overview">Overview</button>
+          <button class="dash-link" type="button" data-dash-tab="new-listing">New listing</button>
+          <button class="dash-link" type="button" data-dash-tab="my-listings">My listings</button>
+          <button class="dash-link" type="button" data-dash-tab="enquiries">Enquiries</button>
+        </aside>
+        <section class="dashboard-content">
+          <div class="dash-tab active" id="dash-overview">
+            <div class="metric-grid">
+              <article><span>Active listings</span><strong id="metricActive">0</strong></article>
+              <article><span>Pending approval</span><strong id="metricPending">0</strong></article>
+              <article><span>Total enquiries</span><strong id="metricEnquiries">0</strong></article>
+              <article><span>Saved by tenants</span><strong id="metricSaved">0</strong></article>
+            </div>
+            <div class="dash-card">
+              <h2>Listing performance</h2>
+              <div class="bar-chart" id="agentChart"></div>
+            </div>
+          </div>
+
+          <div class="dash-tab" id="dash-new-listing">
+            <div class="dash-card">
+              <div class="card-heading">
+                <div><p class="eyebrow blue">Create listing</p><h2>Add a property</h2></div>
+                <span class="status-pill">Goes to admin review</span>
+              </div>
+              <form class="listing-form" id="addListingForm">
+                <label><span>Property title</span><input name="title" required placeholder="Modern office suite near Collins Street" /></label>
+                <label><span>Category</span><select name="category" required><option>Residential</option><option>Commercial</option><option>Industrial</option><option>Retail</option><option>Rural</option></select></label>
+                <label><span>Property type</span><input name="type" required placeholder="Office, House, Warehouse..." /></label>
+                <label><span>Price value</span><input name="priceValue" type="number" min="1" required placeholder="520" /></label>
+                <label><span>Price period</span><select name="period"><option>per week</option><option>p.a. + Outgoings</option><option>p.a.</option></select></label>
+                <label><span>Location</span><input name="location" required placeholder="123 Example St, Melbourne VIC 3000" /></label>
+                <label><span>Area / size</span><input name="area" placeholder="120 m²" /></label>
+                <label class="full"><span>Description</span><textarea name="description" required placeholder="Describe the property, access, amenities and key benefits..."></textarea></label>
+                <label class="full"><span>Virtual tour URL</span><input name="virtualTour" placeholder="https://example.com/virtual-tour" /></label>
+                <label class="full"><span>Feature tags, comma separated</span><input name="features" placeholder="Parking, Air conditioning, High foot traffic" /></label>
+                <button class="btn btn-primary full" type="submit">Submit listing for approval</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="dash-tab" id="dash-my-listings">
+            <div class="dash-card">
+              <h2>My listings</h2>
+              <div class="table-wrap"><table class="data-table" id="agentListingsTable"></table></div>
+            </div>
+          </div>
+
+          <div class="dash-tab" id="dash-enquiries">
+            <div class="dash-card">
+              <h2>Enquiries</h2>
+              <div class="enquiry-list" id="enquiryList"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <!-- ADMIN VIEW -->
+    <section class="view" id="view-admin" data-view="admin">
+      <section class="dashboard-hero admin-hero">
+        <div class="container dashboard-hero-grid">
+          <div>
+            <p class="eyebrow">Admin control</p>
+            <h1>Approve, feature and monitor marketplace quality.</h1>
+            <p>Static admin prototype for listing moderation, marketplace analytics and quick actions.</p>
+          </div>
+          <button class="btn btn-light" type="button" id="resetDemo">Reset demo data</button>
+        </div>
+      </section>
+
+      <section class="container admin-layout">
+        <div class="metric-grid admin-metrics">
+          <article><span>Total listings</span><strong id="adminTotal">0</strong></article>
+          <article><span>Pending review</span><strong id="adminPending">0</strong></article>
+          <article><span>Featured</span><strong id="adminFeatured">0</strong></article>
+          <article><span>Total views</span><strong id="adminViews">0</strong></article>
+        </div>
+        <div class="dash-card">
+          <div class="card-heading">
+            <div><p class="eyebrow blue">Moderation queue</p><h2>All marketplace listings</h2></div>
+            <select id="adminFilter"><option value="all">All listings</option><option value="pending">Pending only</option><option value="featured">Featured only</option></select>
+          </div>
+          <div class="table-wrap"><table class="data-table" id="adminListingsTable"></table></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Property Details Drawer -->
+  <aside class="detail-drawer" id="detailDrawer" aria-hidden="true" aria-label="Property details">
+    <div class="drawer-backdrop" data-close-drawer></div>
+    <article class="drawer-panel" role="dialog" aria-modal="true">
+      <button class="drawer-close" type="button" data-close-drawer aria-label="Close details">×</button>
+      <div id="drawerContent"></div>
+    </article>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="#home" data-route="home">werent<span>.</span></a>
+        <p>Australia's dedicated leasing marketplace for residential, commercial, industrial, retail and rural property sectors.</p>
+      </div>
+      <div>
+        <h3>Residential sectors</h3>
+        <a href="#listings" data-category-link="Residential">Houses for Rent</a>
+        <a href="#listings" data-category-link="Residential">Inner-city Apartments</a>
+        <a href="#listings" data-category-link="Residential">Luxury Townhouses</a>
+      </div>
+      <div>
+        <h3>Enterprise leasing</h3>
+        <a href="#listings" data-category-link="Commercial">Executive Office Suites</a>
+        <a href="#listings" data-category-link="Industrial">Industrial Warehouses</a>
+        <a href="#listings" data-category-link="Retail">Shopping Centre Kiosks</a>
+      </div>
+      <div>
+        <h3>Compliance board</h3>
+        <p class="security-note">Vetted privacy-secured demo. Replace static storage with real backend APIs before production.</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Werent Group Pty Ltd. Prototype UI.</span>
+      <span>Privacy Charter ·</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
